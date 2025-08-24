@@ -1,22 +1,33 @@
-package org.example;
+package com.telusko;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
-import java.sql.SQLOutput;
-
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
 
-            Student s1 = new Student();
+        Student s1 = new Student();
 
-            s1.setsName("Navin");
-            s1.setsAge(30);
-            s1.getRollNo(101);
 
-        Session
+        s1.setRollNo(106);
+        s1.setsName("Avni");
+        s1.setsAge(21);
 
-            System.out.println(s1);
+        Student s2 = null;
+
+        SessionFactory sf = new Configuration()
+                .configure()
+                .addAnnotatedClass(com.telusko.Student.class)
+                .buildSessionFactory();
+
+        Session session = sf.openSession();
+        s2 = session.get(Student.class, 102);
+
+        session.close();
+        sf.close();
+        System.out.println(s2);
+
     }
+
 }
